@@ -22,7 +22,7 @@ const { initializeApp } = require('firebase-admin/app');
 const admin = require("firebase-admin");
 //first firebase file
 // const serviceAccount =require("./doctors-portal-d918a-firebase-adminsdk-5s8k4-f153a9f9b9.json");
-const serviceAccount=JSON.parse(process.env.FIREBASE);
+const serviceAccount = JSON.parse(process.env.FIREBASE);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -67,9 +67,10 @@ async function run() {
     const adminscollection = client.db(databasename).collection(admincollection);
     const servicsecollection = client.db(databasename).collection(servicecollection);
     const appointmentscollection = client.db(databasename).collection(appointmentcollection);
-app.get('/',(req,res)=>{
-  res.send("Doctors Portal")
-})
+
+    app.get('/', (req, res) => {
+      res.send("Doctors Portal")
+    })
     //find all appointment using email and date
     app.get('/appointments', verifyToken, async (req, res) => {
       const email = req.query.email;
@@ -159,4 +160,4 @@ app.get('/',(req,res)=>{
 run().catch(console.dir);
 
 
-app.listen(port, () => console.log("listening to port 5000"))
+app.listen(port, () => console.log(`listening to port ${port}`))
